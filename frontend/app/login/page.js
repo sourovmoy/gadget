@@ -46,17 +46,21 @@ function LoginForm() {
       
       // User-friendly error messages
       if (error.code === 'auth/user-not-found') {
-        setError('No account found with this email.');
+        setError('No account found with this email. Please sign up first.');
       } else if (error.code === 'auth/wrong-password') {
         setError('Incorrect password.');
+      } else if (error.code === 'auth/invalid-credential') {
+        setError('Invalid email or password. If you don\'t have an account, please sign up first.');
       } else if (error.code === 'auth/email-already-in-use') {
         setError('Email already in use. Please login instead.');
       } else if (error.code === 'auth/weak-password') {
         setError('Password should be at least 6 characters.');
       } else if (error.code === 'auth/invalid-email') {
         setError('Invalid email address.');
+      } else if (error.code === 'auth/operation-not-allowed') {
+        setError('Email/Password authentication is not enabled. Please contact administrator.');
       } else {
-        setError('Authentication failed. Please try again.');
+        setError(`Authentication failed: ${error.message}`);
       }
     } finally {
       setLoading(false);
