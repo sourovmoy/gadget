@@ -136,9 +136,26 @@ function LoginForm() {
 
         <div className="mt-6 pt-6 border-t border-gray-200">
           <p className="text-sm text-gray-600 text-center">
-            Demo credentials for testing:
-            <br />
-            <span className="font-mono text-xs">test@example.com / test123</span>
+            {isLogin ? (
+              <>
+                Don't have an account?{' '}
+                <button
+                  onClick={() => {
+                    setIsLogin(false);
+                    setError('');
+                  }}
+                  className="text-primary hover:text-blue-600 font-medium"
+                >
+                  Create one now
+                </button>
+              </>
+            ) : (
+              <>
+                Create a new account to get started.
+                <br />
+                <span className="text-xs text-gray-500">Password must be at least 6 characters</span>
+              </>
+            )}
           </p>
         </div>
       </div>
