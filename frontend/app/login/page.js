@@ -27,17 +27,24 @@ function LoginForm() {
 
       if (isLogin) {
         // Login
+        console.log('Attempting Firebase login...');
         userCredential = await signInWithEmailAndPassword(auth, email, password);
       } else {
         // Register
+        console.log('Attempting Firebase signup...');
         userCredential = await createUserWithEmailAndPassword(auth, email, password);
       }
 
+      console.log('Firebase auth successful:', userCredential.user.email);
+
       // Get Firebase ID token
       const idToken = await userCredential.user.getIdToken();
+      console.log('Got Firebase ID token');
 
       // Send to backend to get JWT
-      await authAPI.login(idToken);
+      console.log('Sending token to backend...');
+      const backendResponse = await authAPI.login(idToken);
+      console.log('Backend login successful:', backendResponse);
 
       // Redirect to intended page or items page
       router.push(redirect);

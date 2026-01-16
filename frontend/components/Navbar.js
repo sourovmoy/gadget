@@ -123,12 +123,7 @@ export default function Navbar() {
               </>
             )}
             
-            {/* Debug indicator - remove after testing */}
-            {isClient && (
-              <div className="text-xs text-gray-500">
-                {isAuthenticated ? '🟢' : '🔴'}
-              </div>
-            )}
+        
           </div>
 
           {/* Mobile menu button */}
