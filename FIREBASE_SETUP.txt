@@ -1,0 +1,135 @@
+🔥 FIREBASE AUTHENTICATION SETUP
+
+═══════════════════════════════════════════════════════════
+
+⚠️ IMPORTANT: You must enable Email/Password authentication in Firebase Console
+
+═══════════════════════════════════════════════════════════
+
+📋 STEP-BY-STEP GUIDE
+
+STEP 1: Go to Firebase Console
+→ Visit: https://console.firebase.google.com/
+→ Select your project: sourov-job-task-projects
+
+STEP 2: Navigate to Authentication
+→ Click "Authentication" in the left sidebar
+→ Click "Get started" (if first time)
+
+STEP 3: Enable Email/Password Sign-in
+→ Click "Sign-in method" tab
+→ Find "Email/Password" in the list
+→ Click on it
+→ Toggle "Enable" to ON
+→ Click "Save"
+
+STEP 4: (Optional) Add Test User
+→ Click "Users" tab
+→ Click "Add user"
+→ Enter email: test@example.com
+→ Enter password: test123456
+→ Click "Add user"
+
+═══════════════════════════════════════════════════════════
+
+✅ VERIFY SETUP
+
+After enabling Email/Password authentication:
+
+1. Go to your local frontend: http://localhost:3000/login
+2. Click "Don't have an account? Sign up"
+3. Enter any email and password (min 6 characters)
+4. Click "Sign Up"
+5. Should redirect to items page
+
+═══════════════════════════════════════════════════════════
+
+🔍 TROUBLESHOOTING
+
+Problem: "Authentication failed" error
+Solution: 
+- Make sure Email/Password is enabled in Firebase Console
+- Check browser console for specific error
+- Verify Firebase config in frontend/.env.local
+
+Problem: "Invalid email" error
+Solution:
+- Use a valid email format (e.g., user@example.com)
+- Email doesn't need to be real, just valid format
+
+Problem: "Weak password" error
+Solution:
+- Password must be at least 6 characters
+- Use: test123456 or any password with 6+ characters
+
+Problem: "Email already in use" error
+Solution:
+- This email is already registered
+- Try logging in instead of signing up
+- Or use a different email
+
+═══════════════════════════════════════════════════════════
+
+📱 TESTING AUTHENTICATION
+
+Test Signup:
+1. Go to /login
+2. Click "Sign up"
+3. Email: yourname@test.com
+4. Password: password123
+5. Click "Sign Up"
+
+Test Login:
+1. Go to /login
+2. Email: yourname@test.com
+3. Password: password123
+4. Click "Sign In"
+
+Test Protected Route:
+1. After login, go to /add-item
+2. Should be able to access
+3. Try adding a new item
+
+Test Logout:
+1. Click "Logout" in navbar
+2. Try accessing /add-item
+3. Should redirect to login
+
+═══════════════════════════════════════════════════════════
+
+🔐 FIREBASE AUTHENTICATION STATUS
+
+Your Firebase Project: sourov-job-task-projects
+Project ID: sourov-job-task-projects
+
+Current Configuration:
+✅ Firebase Admin SDK configured (backend)
+✅ Firebase Client SDK configured (frontend)
+⚠️ Email/Password authentication needs to be enabled
+
+═══════════════════════════════════════════════════════════
+
+📚 ADDITIONAL RESOURCES
+
+Firebase Authentication Docs:
+https://firebase.google.com/docs/auth
+
+Enable Email/Password Guide:
+https://firebase.google.com/docs/auth/web/password-auth
+
+Firebase Console:
+https://console.firebase.google.com/project/sourov-job-task-projects/authentication
+
+═══════════════════════════════════════════════════════════
+
+🎯 QUICK FIX
+
+If you can't create an account:
+
+1. Go to: https://console.firebase.google.com/project/sourov-job-task-projects/authentication/providers
+2. Click "Email/Password"
+3. Toggle "Enable" to ON
+4. Click "Save"
+5. Try creating account again
+
+That's it! 🚀
