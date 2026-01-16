@@ -21,8 +21,10 @@ export default function Navbar() {
   const checkAuth = async () => {
     try {
       const response = await authAPI.verify();
+      console.log('Auth check:', response); // Debug log
       setIsAuthenticated(response.authenticated);
     } catch (error) {
+      console.log('Auth check failed:', error); // Debug log
       setIsAuthenticated(false);
     }
   };
@@ -40,7 +42,9 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/items', label: 'Items/List' },
+    { href: '/items', label: 'Items' },
+    { href: '/cart', label: 'Cart' },
+    { href: '/wishlist', label: 'Wishlist' },
   ];
 
   return (
