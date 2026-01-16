@@ -18,12 +18,15 @@ export default function Navbar() {
     
     // Listen to Firebase auth state changes
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log('Firebase auth state changed:', user ? 'Logged in' : 'Logged out');
       if (user) {
         // User is signed in
         setIsAuthenticated(true);
+        console.log('User authenticated:', user.email);
       } else {
         // User is signed out
         setIsAuthenticated(false);
+        console.log('User not authenticated');
       }
     });
 
@@ -118,6 +121,13 @@ export default function Navbar() {
                   </Link>
                 )}
               </>
+            )}
+            
+            {/* Debug indicator - remove after testing */}
+            {isClient && (
+              <div className="text-xs text-gray-500">
+                {isAuthenticated ? '🟢' : '🔴'}
+              </div>
             )}
           </div>
 
