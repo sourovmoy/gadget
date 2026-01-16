@@ -1,0 +1,176 @@
+🚀 BACKEND API ROUTES
+
+Base URL (Local): http://localhost:5000
+Base URL (Production): https://your-backend.vercel.app
+
+═══════════════════════════════════════════════════════════
+
+📍 HEALTH CHECK
+GET /api/health
+- Check if server is running
+- No authentication required
+
+Response:
+{
+  "success": true,
+  "message": "Server is running",
+  "timestamp": "2026-01-16T19:29:02.427Z"
+}
+
+═══════════════════════════════════════════════════════════
+
+🔐 AUTHENTICATION ROUTES (prefix: /api/auth)
+
+1. POST /api/auth/login
+   - Login with Firebase ID token
+   - Get JWT cookie
+   
+   Body:
+   {
+     "idToken": "firebase-id-token-here"
+   }
+   
+   Response:
+   {
+     "success": true,
+     "message": "Login successful",
+     "user": { "uid": "...", "email": "..." }
+   }
+
+2. POST /api/auth/logout
+   - Logout and clear JWT cookie
+   
+   Response:
+   {
+     "success": true,
+     "message": "Logout successful"
+   }
+
+3. GET /api/auth/verify
+   - Verify if user is authenticated
+   - Checks JWT cookie
+   
+   Response:
+   {
+     "success": true,
+     "authenticated": true,
+     "user": { "uid": "...", "email": "..." }
+   }
+
+═══════════════════════════════════════════════════════════
+
+📦 ITEMS ROUTES (prefix: /api/items)
+
+1. GET /api/items
+   - Get all items
+   - No authentication required
+   
+   Response:
+   {
+     "success": true,
+     "items": [
+       {
+         "id": "1",
+         "name": "Item name",
+         "description": "Description",
+         "price": 99.99,
+         "image": "https://..."
+       }
+     ]
+   }
+
+2. GET /api/items/:id
+   - Get single item by ID
+   - No authentication required
+   
+   Response:
+   {
+     "success": true,
+     "item": {
+       "id": "1",
+       "name": "Item name",
+       "description": "Description",
+       "price": 99.99,
+       "image": "https://..."
+     }
+   }
+
+3. POST /api/items
+   - Create new item
+   - ⚠️ REQUIRES AUTHENTICATION (JWT cookie)
+   
+   Body:
+   {
+     "name": "Item name",
+     "description": "Description",
+     "price": 99.99,
+     "image": "https://..."
+   }
+   
+   Response:
+   {
+     "success": true,
+     "message": "Item created successfully",
+     "item": { ... }
+   }
+
+═══════════════════════════════════════════════════════════
+
+❌ ERROR RESPONSES
+
+404 Not Found:
+{
+  "success": false,
+  "message": "Route not found"
+}
+
+401 Unauthorized:
+{
+  "success": false,
+  "message": "Unauthorized"
+}
+
+500 Server Error:
+{
+  "success": false,
+  "message": "Internal server error"
+}
+
+═══════════════════════════════════════════════════════════
+
+🔍 COMMON ISSUES
+
+1. "Route not found" error:
+   - Check if you're using correct URL
+   - All routes must start with /api/
+   - Example: /api/items NOT /items
+
+2. CORS error:
+   - Make sure FRONTEND_URL in backend/.env matches your frontend URL
+   - Local: http://localhost:3000
+   - Production: https://your-netlify-app.netlify.app
+
+3. Authentication error:
+   - Make sure you're logged in
+   - JWT cookie must be present
+   - Cookie is HTTP-only (can't access via JavaScript)
+
+═══════════════════════════════════════════════════════════
+
+📝 TESTING EXAMPLES
+
+# Test health check
+curl http://localhost:5000/api/health
+
+# Test get all items
+curl http://localhost:5000/api/items
+
+# Test get single item
+curl http://localhost:5000/api/items/1
+
+# Test verify auth (with cookie)
+curl http://localhost:5000/api/auth/verify --cookie "token=your-jwt-token"
+
+═══════════════════════════════════════════════════════════
+
+✅ Your backend is running on: http://localhost:5000
