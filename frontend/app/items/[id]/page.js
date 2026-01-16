@@ -7,6 +7,9 @@ import Link from 'next/link';
 import { itemsAPI } from '@/lib/api';
 import { addToCart, addToWishlist, isInWishlist, removeFromWishlist } from '@/lib/storage';
 
+// Required for static export with dynamic routes
+export const dynamicParams = true;
+
 export default function ItemDetailPage() {
   const params = useParams();
   const router = useRouter();

@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { itemsAPI } from '@/lib/api';
+import { itemsAPI, authAPI } from '@/lib/api';
 
 export default function AddItemPage() {
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -14,6 +16,25 @@ export default function AddItemPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      const response = await authAPI.verify();
+      if (!response.authenticated) {
+        router.push('/login?redirect=/add-item');
+      } else {
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      router.push('/login?redirect=/add-item');
+    } finally {
+      setIsChecking(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +81,18 @@ export default function AddItemPage() {
       setLoading(false);
     }
   };
+
+  if (isChecking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
