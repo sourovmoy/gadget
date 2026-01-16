@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { authAPI } from '@/lib/api';
 import { auth } from '@/lib/firebase';
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -15,16 +15,34 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsClient(true);
-    checkAuth();
-  }, [pathname]);
+    
+    // Listen to Firebase auth state changes
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // User is signed in
+        setIsAuthenticated(true);
+      } else {
+        // User is signed out
+        setIsAuthenticated(false);
+      }
+    });
+
+    // Cleanup subscription
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    // Also check on pathname change
+    if (isClient) {
+      checkAuth();
+    }
+  }, [pathname, isClient]);
 
   const checkAuth = async () => {
     try {
       const response = await authAPI.verify();
-      console.log('Auth check:', response); // Debug log
       setIsAuthenticated(response.authenticated);
     } catch (error) {
-      console.log('Auth check failed:', error); // Debug log
       setIsAuthenticated(false);
     }
   };
@@ -46,7 +64,7 @@ export default function Navbar() {
     { href: '/cart', label: 'Cart' },
     { href: '/wishlist', label: 'Wishlist' },
   ];
-
+  
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
