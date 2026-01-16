@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -18,6 +19,7 @@
   "devDependencies": {
     "tailwindcss": "^3.4.1",
     "postcss": "^8.4.33",
-    "autoprefixer": "^10.4.16"
+    "autoprefixer": "^10.4.16",
+    "@netlify/plugin-nextjs": "^5.0.0"
   }
 }

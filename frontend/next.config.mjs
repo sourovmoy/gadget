@@ -15,8 +15,9 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: true, // Required for static export and Netlify
+    unoptimized: true,
   },
+  output: 'standalone',
 }
 
-module.exports = nextConfig
+export default nextConfig
