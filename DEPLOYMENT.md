@@ -20,10 +20,10 @@
 
 3. **Deploy to Vercel**
    ```bash
-   vercel
+   vercel --name gadget-backend-api
    ```
    - Follow the prompts
-   - Select your project settings
+   - Use project name: `gadget-backend-api` (or choose a unique name)
    - Vercel will automatically detect the configuration from `vercel.json`
 
 4. **Set Environment Variables in Vercel Dashboard**

@@ -7,6 +7,7 @@
 1. Go to https://vercel.com/new
 2. Import your GitHub repository: `https://github.com/sourovmoy/gadget`
 3. Configure project:
+   - **Project Name**: `gadget-backend-api` (or any unique name)
    - **Root Directory**: `backend`
    - **Framework Preset**: Other
    - Click "Continue"
