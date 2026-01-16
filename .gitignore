@@ -34,3 +34,5 @@ Thumbs.db
 # Sensitive files
 backend/config/serviceAccountKey.json
 backend/serviceAccountKey.base64.txt
+backend/convertToBase64.js
+backend/serviceKeyConverter.js
