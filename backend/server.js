@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'https://gadgets-products.netlify.app',
+  'https://yourusername.github.io', // Add your GitHub Pages URL
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:3002'
@@ -23,6 +24,16 @@ app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
+    
+    // Allow any Vercel deployment (*.vercel.app)
+    if (origin && origin.includes('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // Allow GitHub Pages (*.github.io)
+    if (origin && origin.includes('.github.io')) {
+      return callback(null, true);
+    }
     
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
