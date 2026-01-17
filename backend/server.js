@@ -14,12 +14,19 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
       process.env.FRONTEND_URL,
+      'https://gadgets-products.netlify.app',
       'http://localhost:3000',
       'http://localhost:3001',
       'http://localhost:3002'
     ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
+
+// Handle preflight requests
+
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -32,7 +39,17 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     success: true, 
     message: 'Server is running',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    cors: {
+      allowedOrigins: [
+        process.env.FRONTEND_URL,
+        'https://gadgets-products.netlify.app',
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'http://localhost:3002'
+      ]
+    },
+    environment: process.env.NODE_ENV
   });
 });
 
